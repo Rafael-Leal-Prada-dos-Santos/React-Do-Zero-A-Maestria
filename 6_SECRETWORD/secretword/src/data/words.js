@@ -5,5 +5,4 @@ export const wordsList = {
     computador: ["Mouse","Teclado","Monitor","Gabinete","Headset"],
     programacao: ["Linguagem","Framework","Javascript","React","Node"],
     alimento: ["Arroz","Feijão","Carne","Leite","Ovo"]
-
 }
