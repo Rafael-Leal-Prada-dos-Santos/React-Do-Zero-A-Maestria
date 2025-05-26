@@ -14,7 +14,7 @@ const Home = () => {
         {error && <p>Houve um erro!</p>}
         {loading && <p>Carregando, por favor Aguarde</p>}
         {!loading && (
-            <ul>
+            <ul className="products">
                 { products && products.map((product) => (
                     <li key={product.id}>
                         <h2>{product.name}</h2>
