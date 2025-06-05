@@ -4,6 +4,16 @@ export const TitleColorContext = createContext();
 
 export const titleColorReducer = (state, action) => {
     //switch
+    switch(action.type){
+        //O padrão sempre é maíusculo e em string
+        case "RED": 
+            return {...state, color: "red"}
+        case "BLUE": 
+            return {...state, color: "blue"}
+        default:
+            return state;
+    }
+
 }
 
 export const TitleColorContextProvider = ({children}) => {
@@ -12,5 +22,5 @@ export const TitleColorContextProvider = ({children}) => {
 
     console.log("Title Color Context: ", state)
 
-    return <TiteColorContext.Provider value={{...state}}>{children}</TiteColorContext.Provider>
+    return <TitleColorContext.Provider value={{...state, dispatch}}>{children}</TitleColorContext.Provider>
 }
