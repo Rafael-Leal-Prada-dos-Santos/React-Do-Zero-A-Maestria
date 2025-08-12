@@ -1,4 +1,4 @@
-import { db } from "../firebase/config"
+import { app, db } from "../firebase/config"
 import {
     getAuth,
     createUserWithEmailAndPassword,
@@ -19,7 +19,7 @@ export const useAuthentication = () => {
 
     const[cancelled, setCancelled] = useState(false);
 
-    const auth = getAuth();
+    const auth = getAuth(app);
 
     function checkIfIsCancelld(){
         if(cancelled){
@@ -53,10 +53,10 @@ export const useAuthentication = () => {
 
             let systemErrorMessage;
 
-            if(error.message.inclues("Password")){
+            if(error.message.includes("Password")){
                 systemErrorMessage = "A senha precisa ter pelo menos 6 caracteres";
             }
-            else if (error.message.inclues("email-already")){
+            else if (error.message.includes("email-already")){
                 systemErrorMessage = "E-mail já cadastrado";
             }
             else
@@ -69,6 +69,50 @@ export const useAuthentication = () => {
         }
     }
 
+    //logout
+    const logout = () => {
+
+        checkIfIsCancelld();
+        signOut(auth)
+    }
+
+    const login = async(data) => {
+        checkIfIsCancelld();
+
+        setLoading(true);
+        setError(null);
+
+        try
+        {
+            console.log(data)
+            // console.log(auth);
+            await signInWithEmailAndPassword(auth, data.email, data.password);
+        }
+        catch(error)
+        {
+            console.log(error.message);
+
+            let systemErrorMessage;
+
+             if(error.message.includes("user-not-found")) {
+                systemErrorMessage = "Usuário não encontrado.";
+            }
+            else if(error.message.includes("wrong-password")) {
+                systemErrorMessage = "Senha incorreta.";
+            }
+            else if(error.message.includes("invalid-credential")) {
+                systemErrorMessage = "Credencial inválida.";
+            }
+            else {
+                 systemErrorMessage = "Ocorreu um erro. Tente novamente mais tarde";
+            }
+
+            setLoading(false);
+            console.log(systemErrorMessage)
+            setError(systemErrorMessage);
+        }
+    }
+
     useEffect(() => {
         return () => setCancelled(true);
     } , [])
@@ -77,6 +121,8 @@ export const useAuthentication = () => {
         auth,
         createUser,
         error,
-        loading
+        loading,
+        login,
+        logout
     }
 }

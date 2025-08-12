@@ -18,6 +18,8 @@ import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
+import CreatePost from './pages/CreatePost/CreatePost';
+import Dashboard from './pages/Dashboard/Dashboard';
 
 function App() {
 
@@ -46,8 +48,10 @@ function App() {
           <Routes>
             <Route path="/" element={<Home/>}/>
             <Route path="/about" element={<About/>}/>
-            <Route path="/login" element={<Login/>}/>
-            <Route path="/register" element={<Register/>}/>
+            <Route path="/login" element={user ? <Navigate to="/"/> : <Login/> }/>
+            <Route path="/register" element={user ? <Navigate to="/"/> : <Register/>}/>
+            <Route path="/posts/create" element={user ? <CreatePost/> : <Navigate to="/login"/>}/>
+            <Route path="/dashboard" element={ user ? <Dashboard/> : <Navigate to="/login"/>}/>
           </Routes>
         </div>
         <Footer/>

@@ -7,10 +7,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { onAuthStateChanged } from 'firebase/auth';
 import { useState, useEffect } from 'react';
 
-import { useAuthentication } from './hooks/useAuthentication';
 
-//context
-import { AuthProvider } from './contexts/AuthContext';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
