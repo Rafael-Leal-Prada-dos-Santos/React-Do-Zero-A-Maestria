@@ -4,16 +4,18 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom'
+import { onAuthStateChanged } from 'firebase/auth';
+import { useState, useEffect } from 'react';
+
+import { useAuthentication } from './hooks/useAuthentication';
+
 //context
 import { AuthProvider } from './contexts/AuthContext';
 
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <AuthProvider>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </AuthProvider>
+    <App />
 );
 
 // If you want to start measuring performance in your app, pass a function
